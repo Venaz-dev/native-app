@@ -1,21 +1,136 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, ScrollView } from "react-native";
+import styled from "styled-components/native";
+import { NotificationIcon } from "./components/Icons";
+import Card from "./components/Card";
+import cards from "./shared/cards";
+import logos from "./shared/logos";
+import Logo from "./components/Logo";
+import Course from "./components/Course";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Container>
+      <TitleBar>
+        <Avatar source={require("./assets/avatar.jpg")} />
+        <Title>Welcome Back</Title>
+        <Name>Chibuzo</Name>
+        <NotificationIcon style={{ position: "absolute", top: 5, right: 20 }} />
+      </TitleBar>
+      <ScrollView style={{ height: "100%" }}>
+        <ScrollView
+          style={{
+            flexDirection: "row",
+            padding: 20,
+            paddingLeft: 12,
+            paddingTop: 30,
+          }}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          {logos.map((logo) => (
+            <Logo key={logo.id} image={logo.image} text={logo.text} />
+          ))}
+        </ScrollView>
+        <Subtitle>Continue Reading</Subtitle>
+        <ScrollView
+          horizontal={true}
+          style={{ paddingBottom: 30, paddingLeft: 10, paddingRight: 10 }}
+          showsHorizontalScrollIndicator={false}
+        >
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              title={card.title}
+              image={card.image}
+              logo={card.logo}
+              subtitle={card.subtitle}
+              caption={card.caption}
+            />
+          ))}
+        </ScrollView>
+        <Subtitle>Popular Courses</Subtitle>
+        <Course />
+      </ScrollView>
+    </Container>
   );
 }
+
+const Main = styled.View`
+  flex: 1;
+  background-color: #f0f3f5;
+`;
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: #f0f3f5;
+`;
+
+const Subtitle = styled.Text`
+  font-weight: 600;
+  font-size: 15px;
+  color: #b8bece;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+`;
+
+const Avatar = styled.Image`
+  height: 44px;
+  width: 44px;
+  background: black;
+  border-radius: 50px;
+  margin-left: 10px;
+  position: absolute;
+  top: 0%;
+  left: 0;
+`;
+
+const Title = styled.Text`
+  font-size: 16px;
+  color: #b8bece;
+  font-weight: 500;
+`;
+
+const Name = styled.Text`
+  font-size: 20px;
+  color: #3c4560;
+  font-weight: bold;
+`;
+
+const TitleBar = styled.View`
+  width: 100%;
+  margin-top: 50px;
+  padding-left: 80px;
+  padding-bottom: 20px;
+`;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f0f3f5",
+    // alignItems: "center",
+    // justifyContent: "center",
+  },
+  topbar: {
+    width: "100%",
+    marginTop: 50,
+    paddingLeft: 80,
+  },
+  avatar: {
+    height: 44,
+    width: 44,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  name: {
+    fontSize: 18,
+    color: "#3c4560",
+  },
+  title: {
+    fontSize: 10,
+    color: "white",
+    textDecorationLine: "underline",
   },
 });
