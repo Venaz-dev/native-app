@@ -23,7 +23,7 @@ export default function App() {
           style={{
             flexDirection: "row",
             padding: 20,
-            paddingLeft: 12,
+            paddingLeft: 0,
             paddingTop: 30,
           }}
           horizontal={true}
@@ -68,11 +68,11 @@ const Container = styled.SafeAreaView`
 `;
 
 const Subtitle = styled.Text`
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 13px;
   color: #b8bece;
-  margin-left: 20px;
-  margin-top: 20px;
+  margin-left: 10px;
+  margin-top: 0px;
   text-transform: uppercase;
 `;
 
