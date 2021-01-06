@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components/native";
 
-const Card = ({ title, image, caption, logo, subtitle }) => {
+const Card = ({ title, image, caption, logo, subtitle, avatar, author }) => {
   return (
     <Container>
       <Cover>
-        <Image source={require("../assets/background5.jpg")} />
-        <Section>10 Sections</Section>
-        <Title>Prototype in Invision Studio</Title>
+        <Image source={image} />
+        <Section>{subtitle}</Section>
+        <Title>{title}</Title>
+        <Logo source={logo} resizeMode="contain" />
       </Cover>
       <Content>
-        <Logo source={logo} />
+        <Avatar source={avatar} />
         <Wrapper>
           <Caption>{caption}</Caption>
-          <Subtitle>{subtitle}</Subtitle>
+          <Author>Taught by {author}</Author>
         </Wrapper>
       </Content>
     </Container>
@@ -23,41 +24,49 @@ const Card = ({ title, image, caption, logo, subtitle }) => {
 export default Card;
 
 const Content = styled.View`
-  padding-left: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   flex-direction: row;
   align-items: center;
-  height: 80px;
+  height: 90px;
 `;
 
 const Wrapper = styled.View`
-  margin-left: 20px;
+  margin-left: 10px;
 `;
 
 const Logo = styled.Image`
-  height: 44px;
-  width: 44px;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+`;
+
+const Avatar = styled.Image`
+  height: 35px;
+  width: 35px;
+  border-radius: 50px;
 `;
 
 const Caption = styled.Text`
   color: #3c4560;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 600;
+  width: 140px;
 `;
 
-const Subtitle = styled.Text`
+const Author = styled.Text`
   color: #b8bece;
   font-weight: 600;
-  font-size: 15px;
-  text-transform: uppercase;
-  margin-top: 4px;
+  font-size: 12px;
 `;
 
 const Container = styled.View`
   background: white;
   width: 200px;
-  height: 220px;
+  height: 250px;
   border-radius: 14px;
-  margin-left: 10px;
   margin-right: 10px;
   margin-top: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
@@ -65,7 +74,7 @@ const Container = styled.View`
 
 const Cover = styled.View`
   width: 100%;
-  height: 150px;
+  height: 160px;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
   overflow: hidden;
@@ -73,7 +82,7 @@ const Cover = styled.View`
 
 const Section = styled.Text`
   position: absolute;
-  bottom: 100px;
+  bottom: 70px;
   left: 20px;
   font-weight: 700;
   font-size: 16px;
@@ -88,7 +97,7 @@ const Title = styled.Text`
   font-size: 18px;
   color: white;
   width: 170px;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 const Image = styled.Image`

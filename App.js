@@ -4,21 +4,23 @@ import { StyleSheet, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { NotificationIcon } from "./components/Icons";
 import Card from "./components/Card";
-import cards from "./shared/cards";
+import cards, { courses } from "./shared/cards";
 import logos from "./shared/logos";
 import Logo from "./components/Logo";
 import Course from "./components/Course";
+import Menu from "./components/Menu";
 
 export default function App() {
   return (
     <Container>
+      <Menu />
       <TitleBar>
         <Avatar source={require("./assets/avatar.jpg")} />
         <Title>Welcome Back</Title>
         <Name>Chibuzo</Name>
         <NotificationIcon style={{ position: "absolute", top: 5, right: 20 }} />
       </TitleBar>
-      <ScrollView style={{ height: "100%" }}>
+      <ScrollView style={{ height: "100%", backgroundColor: "#f0f3f5" }}>
         <ScrollView
           style={{
             flexDirection: "row",
@@ -51,7 +53,24 @@ export default function App() {
           ))}
         </ScrollView>
         <Subtitle>Popular Courses</Subtitle>
-        <Course />
+        <ScrollView
+          horizontal={true}
+          style={{ paddingBottom: 30, paddingLeft: 10, paddingRight: 10 }}
+          showsHorizontalScrollIndicator={false}
+        >
+          {courses.map((course) => (
+            <Course
+              key={course.id}
+              title={course.title}
+              subtitle={course.subtitle}
+              image={course.image}
+              logo={course.logo}
+              author={course.author}
+              avatar={course.avatar}
+              caption={course.caption}
+            />
+          ))}
+        </ScrollView>
       </ScrollView>
     </Container>
   );
@@ -64,7 +83,7 @@ const Main = styled.View`
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: #f0f3f5;
+  background-color: white;
 `;
 
 const Subtitle = styled.Text`
