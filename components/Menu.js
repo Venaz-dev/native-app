@@ -4,34 +4,67 @@ import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { menuItems } from "../shared/cards";
 import MenuItem from "./MenuItem";
+import { connect } from "react-redux";
+import store from "../store/store";
+import { useProxy } from "valtio";
+
+function mapStateToProps(state) {
+  return { action: state.action };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    closeMenu: () =>
+      dispatch({
+        type: "CLOSE_MENU",
+      }),
+  };
+}
 
 const screenHeight = Dimensions.get("window").height;
 
-const Menu = () => {
+const Menu = (props) => {
+  const snapshot = useProxy(store);
   const [state, setState] = useState({
     top: new Animated.Value(screenHeight),
   });
 
-  const openMenu = () => {
-    Animated.spring(state.top, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start();
+  const toogleMenu = () => {
+    // if (props.action == "openMenu") {
+    //   Animated.spring(state.top, {
+    //     toValue: 60,
+    //     useNativeDriver: false,
+    //     speed: 20,
+    //   }).start();
+    // }
+    // if (props.action == "closeMenu") {
+    //   Animated.spring(state.top, {
+    //     toValue: screenHeight,
+    //     useNativeDriver: false,
+    //     speed: 20,
+    //   }).start();
+    // }
+
+    if (snapshot.menuAction == "openMenu") {
+      Animated.spring(state.top, {
+        toValue: 60,
+        useNativeDriver: false,
+      }).start();
+    }
+    if (snapshot.menuAction == "closeMenu") {
+      Animated.spring(state.top, {
+        toValue: screenHeight,
+        useNativeDriver: false,
+      }).start();
+    }
   };
 
-  const closeMenu = () => {
-    Animated.spring(state.top, {
-      toValue: screenHeight,
-      useNativeDriver: false,
-    }).start();
-  };
-
+  // useEffect(() => {
+  //   toogleMenu();
+  // }, [props.action]);
   useEffect(() => {
-    Animated.spring(state.top, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start();
-  }, []);
+    toogleMenu();
+  }, [snapshot.menuAction]);
 
   return (
     <AnimatedContainer style={{ top: state.top }}>
@@ -41,7 +74,8 @@ const Menu = () => {
         <Subtitle>Front End Developer</Subtitle>
       </Cover>
       <TouchableOpacity
-        onPress={closeMenu}
+        // onPress={props.closeMenu}
+        onPress={() => (store.menuAction = "closeMenu")}
         style={{
           position: "absolute",
           top: 120,
@@ -68,7 +102,7 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 
 const Container = styled.View`
   position: absolute;
@@ -76,6 +110,9 @@ const Container = styled.View`
   width: 100%;
   height: 100%;
   z-index: 100;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  overflow: hidden;
 `;
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
@@ -89,7 +126,8 @@ const Cover = styled.View`
 const Image = styled.Image`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 120%;
+  bottom: -20%;
 `;
 
 const Title = styled.Text`
@@ -118,4 +156,6 @@ const Content = styled.View`
   height: ${screenHeight}px;
   background: #f0f3f5;
   padding: 50px;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
 `;

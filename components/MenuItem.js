@@ -24,10 +24,11 @@ const Container = styled.View`
 `;
 
 const IconView = styled.View`
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   justify-content: center;
   align-items: center;
+  margin-top: 2px;
 `;
 
 const Content = styled.View`
@@ -35,14 +36,15 @@ const Content = styled.View`
 `;
 
 const Title = styled.Text`
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   color: #3c4560;
 `;
 
 const Text = styled.Text`
+font-size: 12px
   font-weight: 600;
   color: #3c4560;
   opacity: 0.6;
-  margin-top: 5px;
+
 `;
