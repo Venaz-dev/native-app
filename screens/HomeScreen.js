@@ -143,14 +143,22 @@ const HomeScreen = (props) => {
             showsHorizontalScrollIndicator={false}
           >
             {cards.map((card) => (
-              <Card
+              <TouchableOpacity
                 key={card.id}
-                title={card.title}
-                image={card.image}
-                logo={card.logo}
-                subtitle={card.subtitle}
-                caption={card.caption}
-              />
+                onPress={() => {
+                  props.navigation.push("Section", {
+                    section: card,
+                  });
+                }}
+              >
+                <Card
+                  title={card.title}
+                  image={card.image}
+                  logo={card.logo}
+                  subtitle={card.subtitle}
+                  caption={card.caption}
+                />
+              </TouchableOpacity>
             ))}
           </ScrollView>
           <Subtitle>Popular Courses</Subtitle>
